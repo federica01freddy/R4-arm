@@ -1,3 +1,6 @@
+## Note
+This is the modified version of [this code](https://github.com/Robotawi/rrr_arm_config) in order to work with a 4 DOF (RRRR) robot arm.
+
 # RRR-robot-arm visualization in Rviz & Simulation in Gazebo
 ROS package for 3 DOF Revolute-Revolute-Revolute robot arm built from scratch. The aim of the package is to explain to fellow roboticists about the flow from the arms modeling to using MoveIt for motion planning.
 
