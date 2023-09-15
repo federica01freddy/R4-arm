@@ -5,12 +5,12 @@
   2. joint state publisher
   3. robot state publisher
   4. rviz
-  Its purpose is visulaization in rviz
+  Its purpose is visualization in rviz
 -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find rrr_arm)/urdf/rrr_arm.xacro" />
+  <param name="robot_description_3" command="$(find xacro)/xacro --inorder $(find r4_arm)/urdf/rrrr_arm.xacro" />
 
-  <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rrr_arm)/urdf.rviz" required="true"/>
+  <node name="joint_state_publisher_3" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+  <node name="robot_state_publisher_3" pkg="robot_state_publisher" type="robot_state_publisher"/> 
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find r4_arm)/urdf.rviz" required="true"/>
 
 </launch>

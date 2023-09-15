@@ -4,26 +4,36 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="r4_arm">
     <!--Define constants-->
     <xacro:property name="link_type" value="cuboidal" />
+    
     <xacro:property name="M_PI" value="3.14159"/>
-    <xacro:property name="mass_1" value="20" />
-    <xacro:property name="mass_2" value="5" />
-    <xacro:property name="mass_3" value="3" />
-    <xacro:property name="mass_4" value="3" />
-    <xacro:property name="mass_5" value="1" />
-    <xacro:property name="mass_6" value="0.2" />
-    <xacro:property name="radius_1" value="0.1" />  <!--base_link radius-->
-    <xacro:property name="radius_2" value="0.05" /> <!--link_1 radius-->
-    <xacro:property name="radius_3" value="0.035" /><!--link_2 radius-->
-    <xacro:property name="radius_4" value="0.025" /><!--link_3 radius-->
-    <xacro:property name="radius_5" value="0.025" /><!--gripper base redius/width-->
-    <xacro:property name="radius_6" value="0.02" /> <!--finger radius/length-->
+    
+    <xacro:property name="mass_1" value="20" /> 	<!--base_link mass-->
+    <xacro:property name="mass_2" value="5" /> 	<!--link_1 mass-->
+    <xacro:property name="mass_3" value="3" /> 	<!--link_2 mass-->
+    <xacro:property name="mass_7" value="3" /> 	<!--new_link mass-->
+    <xacro:property name="mass_4" value="3" /> 	<!--link_3 mass-->
+    <xacro:property name="mass_5" value="1" /> 	<!--gripper base mass -->
+    <xacro:property name="mass_6" value="0.2" /> 	<!--finger mass -->
+    
+    <xacro:property name="radius_1" value="0.1" />  	<!--base_link radius-->
+    <xacro:property name="radius_2" value="0.05" /> 	<!--link_1 radius-->
+    <xacro:property name="radius_3" value="0.035" />	<!--link_2 radius-->
+    <xacro:property name="radius_7" value="0.035" />	<!--new_link radius-->
+    <xacro:property name="radius_4" value="0.025" />	<!--link_3 radius-->
+    <xacro:property name="radius_5" value="0.025" />	<!--gripper base radius/width--> <!--link_4-->
+    <xacro:property name="radius_6" value="0.02" /> 	<!--finger radius/length--> <!--gripper_link 1, gripper_link 2-->
 
-    <xacro:property name="length_1" value="0.15" /> <!--base_link length-->
-    <xacro:property name="length_2" value="0.4" />  <!--link_1 length-->
-    <xacro:property name="length_3" value="0.5" />  <!--link_2 length-->
-    <xacro:property name="length_4" value="0.3" /> <!--link_3 length-->
-    <xacro:property name="length_5" value="0.15" /> <!--gripper base length-->
-    <xacro:property name="length_6" value="0.07" /> <!--finger length-->
+    <xacro:property name="length_1" value="0.15" /> 	<!--base_link length-->
+    <xacro:property name="length_2" value="0.10" />   <!--link_1 length--> <!--0.4-->
+    <xacro:property name="length_3" value="0.5" />  	<!--link_2 length-->
+    <xacro:property name="length_7" value="0.10" />   <!--new_link length-->
+    <xacro:property name="length_4" value="0.3" /> 	<!--link_3 length-->
+    <xacro:property name="length_5" value="0.15" /> 	<!--gripper base length--> <!--link_4-->
+    <xacro:property name="length_6" value="0.07" /> 	<!--finger length--> <!--gripper_link 1, gripper_link 2-->
+    
+    <xacro:property name="width_1" value="0.5" />  	<!--rover box width_1-->
+    <xacro:property name="width_2" value="0.3" /> 	<!--rover box width_2-->
+    <xacro:property name="height" value="0.07" />	<!--rover box height-->
     
     <!--Define Rviz colors-->
     <material name="Black">
@@ -104,7 +114,36 @@
         <parent link="world"/>
         <child link="base_link"/>
     </joint>
+    
+    <!--=============================================================================-->
+    <!--rover_box-->
+    <!--<link name="rover_box">
+        <xacro:inertial_block mass="${mass_1}" length="${height}" radius="${width_1}"/>
+        <visual>
+            <origin xyz="0.0 0.0 ${height/2.0}" rpy="0.0 0.0 0.0"/> 
+            <geometry> 
+                <box size="${width_1} ${width_1/2.0} ${height}"/>
+            </geometry>
+            <material name="Grey"/>
+        </visual>
 
+        <collision>
+            <origin xyz="0.0 0.0 ${height/2.0}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${width_1} ${width_1/2.0} ${height}"/>
+            </geometry>>
+        </collision>
+    </link>
+
+    <xacro:gazebo_grey_link_color_block link_name="rover_box"/>
+
+    <joint name="rover_box_joint" type="fixed">
+        <origin xyz="0.0 0.0 ${height}" rpy="0.0 0.0 0.0"/>
+        <parent link="rover_box"/>
+        <child link="base_link"/>
+    </joint>-->
+    
+    <!--=============================================================================-->
     <!--base_link-->
     <link name="base_link">
         <xacro:inertial_block mass="${mass_1}" length="${length_1}" radius="${radius_1}"/>
@@ -150,32 +189,30 @@
             <origin xyz="0.0 0.0 ${length_2/2.0}" rpy="0.0 0.0 0.0"/>
             <geometry>
                 <cylinder radius="${radius_2}" length="${length_2}"/>
-            </geometry>>
+            </geometry>
         </collision>
     </link>
     
     <xacro:gazebo_grey_link_color_block link_name="link_1"/>
-    <!-- <xacro:gazebo_grey_link_color_block link_name="link_1"> -->
     
     <link name="link_1_endlink">
-        <xacro:inertial_block mass="${mass_2/3.0}" length="${2*radius_2+2*radius_3}" radius="${radius_2}"/>
+        <xacro:inertial_block mass="${mass_2/3.0}" length="${2*radius_2}" radius="${radius_2}"/> <!--length="${2*radius_2+2*radius_3}-->
         <visual>
-            <origin xyz="0.0 0.0 ${(2*radius_2+2*radius_3)/2.0}" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 ${(2*radius_2)/2.0}" rpy="0.0 0.0 0.0"/> <!--${(2*radius_2+2*radius_3)/2.0-->
             <geometry>
-                <cylinder radius="${radius_2*1.1}" length="${2*radius_2+2*radius_3}"/>
+                <cylinder radius="${radius_2*1.1}" length="${2*radius_2}"/> <!--${2*radius_2+2*radius_3}-->
             </geometry>
             <material name="LightBlue"/>
         </visual>
 
         <collision>
-            <origin xyz="0.0 0.0 ${(2*radius_2+2*radius_3)/2.0}" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 ${(2*radius_2)/2.0}" rpy="0.0 0.0 0.0"/> <!--${(2*radius_2+2*radius_3)/2.0-->
             <geometry>
-                <cylinder radius="${radius_2*1.1}" length="${2*radius_2+2*radius_3}"/>
+                <cylinder radius="${radius_2*1.1}" length="${2*radius_2}"/> <!--${2*radius_2+2*radius_3}-->
             </geometry>
         </collision>
 
     </link>
-
 
     <xacro:gazebo_blue_link_color_block link_name="link_1_endlink"/>
 
@@ -193,7 +230,7 @@
     </gazebo>
 
     <joint name="joint_2" type="revolute">
-        <origin xyz="${radius_2 + radius_3} 0.0 ${length_2}" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0 0.0 ${length_2}" rpy="0.0 0.0 0.0"/> <!--${radius_2 + radius_3}-->
         <parent link="link_1"/>
         <child link="link_2"/>
         <axis xyz="1.0 0.0 0.0"/>
@@ -223,19 +260,19 @@
     <xacro:gazebo_grey_link_color_block link_name="link_2"/>
 
     <link name="link_2_endlink">
-        <xacro:inertial_block mass="${mass_3/3.0}" length="${2*radius_3+2*radius_4}" radius="${radius_3}"/>
+        <xacro:inertial_block mass="${mass_3/3.0}" length="${length_1}" radius="${radius_3}"/>
         <visual>
-            <origin xyz="0.0 0.0 ${(2*radius_3+2*radius_4)/2.0}" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 ${length_1/2.0}" rpy="0.0 0.0 0.0"/> <!--xyz="0.0 0.0 ${(2*radius_3+2*radius_7)/2.0}-->
             <geometry>
-                <cylinder radius="${radius_3*1.1}" length="${2*radius_3+2*radius_4}"/>
+                <cylinder radius="${radius_3*1.3}" length="${length_1}"/> <!--radius="${radius_3*1.1}" length="${2*radius_3+2*radius_7}"-->
             </geometry>
             <material name="LightBlue"/>
         </visual>
 
         <collision>
-            <origin xyz="0.0 0.0 ${(2*radius_3+2*radius_4)/2.0}" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 ${length_1/2.0}" rpy="0.0 0.0 0.0"/>
             <geometry>
-                <cylinder radius="${radius_3*1.1}" length="${2*radius_3+2*radius_4}"/>
+                <cylinder radius="${radius_3*1.3}" length="${length_1}"/>
             </geometry>
         </collision>
     </link>
@@ -243,7 +280,7 @@
     <xacro:gazebo_blue_link_color_block link_name="link_2_endlink"/>
 
     <joint name="link_2_endjoint" type="fixed">
-        <origin xyz="${-radius_3} 0.0 ${length_3 - 0.01}" rpy="0.0 ${M_PI/2.0} 0.0"/>
+        <origin xyz="0.0 0.0 ${length_3 - 0.01}" rpy="0.0 0.0 0.0"/><!--xyz="${-radius_3} 0.0 ${length_3 - 0.01}" rpy="0.0 ${M_PI/2.0} 0.0"-->
         <parent link="link_2"/>
         <child link="link_2_endlink"/>
     </joint>
@@ -254,13 +291,72 @@
     </gazebo>
 
     <joint name="joint_3" type="revolute">
-        <origin xyz="${radius_3 + radius_4} 0.0 ${length_3 - radius_3}" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.0 0.0 ${length_3+2*radius_3+2*radius_7}" rpy="0.0 0.0 0.0"/>
         <parent link="link_2"/>
-        <child link="link_3"/>
+        <child link="new_link"/><!--<child link="link_3"/>-->
+        <axis xyz="0.0 0.0 1.0"/>
+        <limit lower="0.0" upper="${M_PI * 2}" effort="300.0" velocity="1.0"/>
+    </joint>
+    <!--=============================================================================-->
+    <!--new_link-->
+    <link name="new_link">
+        <xacro:inertial_block mass="${mass_7}" length="${length_7}" radius="${radius_7}"/>
+        <visual>
+            <origin xyz="0.0 0.0 ${length_7/2.0}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius_7}" length="${length_7}"/>
+            </geometry>
+            <material name="Grey"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 ${length_7/2.0}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${radius_7}" length="${length_7}"/>
+            </geometry>>
+        </collision>
+    </link>
+    
+    <xacro:gazebo_grey_link_color_block link_name="new_link"/>
+
+    <link name="new_link_endlink">
+        <xacro:inertial_block mass="${mass_7/3.0}" length="${2*radius_7+2*radius_4}" radius="${radius_7}"/>
+        <visual>
+            <origin xyz="0.0 0.0 ${(2*radius_7+2*radius_4)/2.0}" rpy="0.0 ${M_PI/2.0} 0.0"/>
+            <geometry>
+                <cylinder radius="${radius_7*1.1}" length="${2*radius_7+2*radius_4}"/>
+            </geometry>
+            <material name="LightBlue"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 ${(2*radius_7+2*radius_4)/2.0}" rpy="0.0 ${M_PI/2.0} 0.0"/>
+            <geometry>
+                <cylinder radius="${radius_7*1.1}" length="${2*radius_7+2*radius_4}"/>
+            </geometry>
+        </collision>
+    </link>
+    
+    <xacro:gazebo_blue_link_color_block link_name="new_link_endlink"/>
+
+    <joint name="new_link_endjoint" type="fixed">
+        <origin xyz="0.0 0.0 ${radius_7}" rpy="0.0 0.0 0.0"/>
+        <parent link="new_link"/>
+        <child link="new_link_endlink"/>
+    </joint>
+    
+    <gazebo reference="new_link_endjoint">
+        <disableFixedJointLumping>true</disableFixedJointLumping> 
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+    
+    <joint name="new_joint" type="revolute">
+        <origin xyz="0.0 0.0 ${length_7 - 0.01}" rpy="0.0 0.0 0.0"/>
+        <parent link="new_link"/>
+        <child link="link_3"/><!--<child link="link_3"/>-->
         <axis xyz="1.0 0.0 0.0"/>
         <limit lower="0.0" upper="${M_PI * 2}" effort="300.0" velocity="1.0"/>
     </joint>
-
     <!--=============================================================================-->
     <!--link_3-->
     <link name="link_3">
@@ -329,11 +425,11 @@
         <limit lower="-0.05" upper="${-radius_6/2.0}" effort="100.0" velocity="1.0"/>
     </joint>
 
-    <joint name="gripper_frame_joint" type="fixed">
+    <!-- <joint name="gripper_frame_joint" type="fixed">
         <origin xyz="0.0 0.0 ${radius_5*2 + length_6/2 + 0.01}" rpy="0.0 0.0 0.0"/>
         <parent link="link_4"/>
         <child link="gripper_frame_cp"/>
-    </joint>
+    </joint> -->
     <!--=============================================================================-->
     <!--gripper_link_1-->
     <link name="gripper_link_1">
@@ -379,7 +475,7 @@
     <xacro:gazebo_grey_link_color_block link_name="gripper_link_2"/>
     <!--=============================================================================-->
     <!--gripper_frame_cp-->
-    <link name="gripper_frame_cp">
+    <!-- <link name="gripper_frame_cp">
         <xacro:inertial_block mass="${0.001}" length="${0.001}" radius="${0.001}"/>
         <visual>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
@@ -395,12 +491,13 @@
                 <box size="${0.001} ${0.001} ${0.001}"/>
             </geometry>
         </collision>
-    </link>
+    </link> -->
 
     <!-- Transmissions for ros control -->
     <xacro:transmission_block joint_name="joint_1"/>
     <xacro:transmission_block joint_name="joint_2"/>
     <xacro:transmission_block joint_name="joint_3"/>
+    <xacro:transmission_block joint_name="new_joint"/>
     <xacro:transmission_block joint_name="joint_4"/>
     <xacro:transmission_block joint_name="gripper_joint_1"/>
     <xacro:transmission_block joint_name="gripper_joint_2"/>

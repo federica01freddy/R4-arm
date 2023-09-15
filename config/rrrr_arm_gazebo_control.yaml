@@ -1,0 +1,79 @@
+r4_arm:
+  # Publish all joint states
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+    
+  #joints_position_controller:
+  #  type: position_controllers/JointPositionController
+  #  joints: 
+  #    - joint_1
+  #    - joint_2
+  #    - joint_3
+  #    - new_joint
+  #    - joint_4
+  #    - gripper_joint_1
+  #    - gripper_joint_2
+  # Position Controllers
+  joint1_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_1
+  joint2_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_2
+  joint3_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_3
+  newjoint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: new_joint
+  joint4_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint_4
+  joint5_position_controller:
+    type: position_controllers/JointPositionController
+    joint: gripper_joint_1
+  joint6_position_controller:
+    type: position_controllers/JointPositionController
+    joint: gripper_joint_2
+  
+  #gazebo_ros_control/pid_gains:
+  #  joint_1: {p: 100.0, i: 0.01, d: 10.0}
+  #  joint_2: {p: 100.0, i: 0.01, d: 10.0}
+  #  joint_3: {p: 100.0, i: 0.01, d: 10.0}
+  #  new_joint: {p: 100.0, i: 0.01, d: 10.0}
+  #  joint_4: {p: 100.0, i: 0.01, d: 10.0}
+  #  gripper_joint_1: {p: 100.0, i: 0.01, d: 10.0}
+  #  gripper_joint_2: {p: 100.0, i: 0.01, d: 10.0}
+  
+  # PID Controllers params
+  #gazebo_ros_control:
+   # pid_gains:
+   #  joint_1:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0
+   #  joint_2:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0
+   #  joint_3:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0
+   #  new_joint:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0
+   #  joint_4:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0
+   #  gripper_joint_1:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0
+   #  gripper_joint_2:
+   #   p: 100.0
+   #   i: 0.01
+   #   d: 10.0

@@ -16,10 +16,10 @@
   </include>
 
   <!-- Find my robot Description-->
-  <param name="robot_description" command="$(find xacro)/xacro  '$(find rrr_arm)/urdf/rrr_arm.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro  '$(find r4_arm)/urdf/rrr_arm.xacro'"/>
 
   <!-- Spawn The Robot using the robot_description param-->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
-        args="-urdf -param robot_description -model rrr_arm"/>
+        args="-urdf -param robot_description -model r4_arm"/>
 
 </launch>
